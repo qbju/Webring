@@ -4,7 +4,7 @@ import re
 import subprocess
 import sys
 import urllib.request
-from urllib.parse import urlparse
+from urllib.parse import quote, urlparse
 
 BODY = os.environ.get("ISSUE_BODY", "")
 ISSUE_NUMBER = os.environ.get("ISSUE_NUMBER", "")
@@ -73,7 +73,7 @@ members = registry.get("members", [])
 
 try:
     github_request = urllib.request.Request(
-        "https://api.github.com/users/" + urllib.parse.quote(AUTHOR),
+        "https://api.github.com/users/" + quote(AUTHOR),
         headers={
             "Accept": "application/vnd.github+json",
             "User-Agent": "~ring-verifier/1.0",

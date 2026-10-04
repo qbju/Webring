@@ -104,4 +104,4 @@ The current member registry is:
 
 ## License
 
-See the repository license.
+MIT

@@ -8,7 +8,8 @@
       "description": "official site",
       "github": "qbju",
       "status": "active",
-      "consecutiveFailures": 0
+      "consecutiveFailures": 0,
+      "githubId": 299393463
     },
     {
       "name": "home",
@@ -16,7 +17,8 @@
       "description": "拠点",
       "github": "qbju",
       "status": "active",
-      "consecutiveFailures": 0
+      "consecutiveFailures": 0,
+      "githubId": 299393463
     }
   ]
 }

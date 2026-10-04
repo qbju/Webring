@@ -22,7 +22,16 @@
     a.href = href;
     a.textContent = text;
     a.rel = "noopener";
-    if (className) a.className = className;
+    if (className) {
+      a.className = className;
+      if (className === "webring-button") {
+        a.style.display = "inline-block";
+        a.style.padding = "0.35rem 0.7rem";
+        a.style.border = "1px solid currentColor";
+        a.style.borderRadius = "0.35rem";
+        a.style.textDecoration = "none";
+      }
+    }
     return a;
   };
 

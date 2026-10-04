@@ -9,7 +9,8 @@ body:
       value: |
         Install this marker on your site before submitting:
 
-            <a href="https://github.com/qbju/Webring" data-webring="~ring">~ring</a>
+            <nav id="~ring"></nav>
+            <script src="https://tildering.pages.dev/widget.js" data-webring="~ring"></script>
 
   - type: input
     id: site_name

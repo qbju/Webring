@@ -4,17 +4,20 @@
 
 ~ring connects personal sites and small web projects into one ring.
 
+Public site: https://tildering.pages.dev/
+
 ## Join ~ring
 
-### 1. Add the ring link
+### 1. Add the ring widget
 
 Add this to a page on your site:
 
 ```html
-<a href="https://github.com/qbju/Webring" data-webring="~ring">~ring</a>
+<nav id="~ring"></nav>
+<script src="https://tildering.pages.dev/widget.js" data-webring="~ring"></script>
 ```
 
-The link must be present on the actual site before you submit your application.
+The widget provides **Prev / Random / Next** navigation between active ~ring members.
 
 ### 2. Open an application
 
@@ -24,7 +27,7 @@ Your application must:
 
 - use a valid HTTP(S) site URL;
 - point to a publicly reachable site;
-- have the ~ring marker installed;
+- have the ~ring widget marker installed;
 - follow the issue template;
 - be submitted from a GitHub account with fewer than 3 existing ~ring registrations.
 
@@ -39,7 +42,7 @@ The bot checks:
 3. whether the submitted URL is reachable;
 4. whether the ~ring marker is actually present.
 
-If everything passes, your site is added to `members.json`.
+If everything passes, your site is added to both `members.json` and the public `docs/members.json`.
 
 ## Participant template
 
@@ -48,16 +51,17 @@ You can copy this section when adding ~ring to your own site's README:
 ```md
 ## ~ring
 
-This site is part of [~ring](https://github.com/qbju/Webring), a web ring connecting independent websites.
+This site is part of [~ring](https://tildering.pages.dev/), a web ring connecting independent websites.
 
-<a href="https://github.com/qbju/Webring" data-webring="~ring">~ring</a>
+<nav id="~ring"></nav>
+<script src="https://tildering.pages.dev/widget.js" data-webring="~ring"></script>
 ```
 
-## GitHub Pages
+## Cloudflare Pages
 
-The public ~ring website is published separately from the registry and automation.
+The public ~ring website is deployed at https://tildering.pages.dev/.
 
-The Pages site reads `members.json` and can provide navigation between registered sites.
+The Pages site serves the public registry and `widget.js`. GitHub Actions keeps `docs/members.json` synchronized with the source registry.
 
 ## Monitoring
 
@@ -69,7 +73,8 @@ A site that fails 3 consecutive checks is marked `inactive`. If a later check su
 
 The current member registry is:
 
-- `members.json` — machine-readable list of registered sites.
+- `members.json` — source-of-truth registry used by automation.
+- `docs/members.json` — public registry served by Cloudflare Pages.
 
 ## License
 

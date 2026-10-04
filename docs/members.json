@@ -1,5 +1,14 @@
 {
   "version": 1,
   "name": "~ring",
-  "members": []
+  "members": [
+    {
+      "name": "~ring official",
+      "url": "https://tildering.pages.dev",
+      "description": "official site",
+      "github": "qbju",
+      "status": "active",
+      "consecutiveFailures": 0
+    }
+  ]
 }

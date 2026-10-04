@@ -60,12 +60,18 @@
       const members = (data.members || []).filter((m) => m.status === "active" && m.url);
       if (!members.length) return;
 
-      const current = normalize(location.href);
-      let index = members.findIndex((m) => normalize(m.url) === current);
+      const current = new URL(location.href);
+      const memberRoot = (value) => {
+        const u = new URL(value, location.href);
+        return { origin: u.origin, path: u.pathname.replace(/\/$/, "") };
+      };
+      const isWithinMember = (member) => {
+        const root = memberRoot(member.url);
+        if (root.origin !== current.origin) return false;
+        return current.pathname === root.path || current.pathname.startsWith(root.path + "/");
+      };
+      let index = members.findIndex(isWithinMember);
 
-      if (index < 0) {
-        index = members.findIndex((m) => normalize(m.url) === normalize(location.origin));
-      }
       if (index < 0) return;
 
       const previous = members[(index - 1 + members.length) % members.length];

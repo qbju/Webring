@@ -1,30 +1,76 @@
 # ~ring
 
-A simple GitHub Actions-powered web ring.
+> A small web ring for independent websites.
 
-Sites join by opening an Issue. Actions validate the application, verify that the ring marker is installed on the submitted site, and add approved sites to members.json.
+~ring connects personal sites and small web projects into one ring.
 
-## Joining
+## Join ~ring
 
-Open a Join ~ring issue and fill in the template.
+### 1. Add the ring link
 
-The submitted site must:
-- use a valid HTTP(S) URL;
-- actually serve the site;
-- contain the ~ring verification marker;
+Add this to a page on your site:
+
+```html
+<a href="https://github.com/qbju/Webring" data-webring="~ring">~ring</a>
+```
+
+The link must be present on the actual site before you submit your application.
+
+### 2. Open an application
+
+Open a **Join ~ring** issue and fill in every field in the template.
+
+Your application must:
+
+- use a valid HTTP(S) site URL;
+- point to a publicly reachable site;
+- have the ~ring marker installed;
 - follow the issue template;
-- have fewer than 3 existing registrations by the same GitHub account.
+- be submitted from a GitHub account with fewer than 3 existing ~ring registrations.
 
-## Ring marker
+Applications are checked automatically by GitHub Actions.
 
-Put this HTML on the site:
+### 3. Wait for verification
 
-    <a href="https://github.com/qbju/Webring" data-webring="~ring">~ring</a>
+The bot checks:
+
+1. the application format;
+2. your GitHub account's existing registrations;
+3. whether the submitted URL is reachable;
+4. whether the ~ring marker is actually present.
+
+If everything passes, your site is added to `members.json`.
+
+## Participant template
+
+You can copy this section when adding ~ring to your own site's README:
+
+```md
+## ~ring
+
+This site is part of [~ring](https://github.com/qbju/Webring), a web ring connecting independent websites.
+
+<a href="https://github.com/qbju/Webring" data-webring="~ring">~ring</a>
+```
+
+## GitHub Pages
+
+The public ~ring website is published separately from the registry and automation.
+
+The Pages site reads `members.json` and can provide navigation between registered sites.
 
 ## Monitoring
 
-Every 6 hours, GitHub Actions checks every registered site. Three consecutive failed checks change the member status to inactive; one successful check restores it.
+Registered sites are checked automatically every 6 hours.
 
-## Data
+A site that fails 3 consecutive checks is marked `inactive`. If a later check succeeds, it is restored to `active`.
 
-members.json is the registry consumed by ring clients.
+## Registry
+
+The current member registry is:
+
+- `members.json` — machine-readable list of registered sites.
+
+## License
+
+See the repository license.

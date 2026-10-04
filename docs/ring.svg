@@ -1,14 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300" role="img" aria-labelledby="title">
   <title id="title">~ring</title>
-  <desc id="desc">A connected ring symbol for the ~ring webring.</desc>
-  <defs>
-    <linearGradient id="g" x1="64" y1="64" x2="448" y2="448" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#171717"/>
-      <stop offset="1" stop-color="#555"/>
-    </linearGradient>
-  </defs>
-  <circle cx="256" cy="256" r="166" fill="none" stroke="url(#g)" stroke-width="54"/>
-  <path d="M151 361 91 421M361 151l60-60" fill="none" stroke="url(#g)" stroke-width="54" stroke-linecap="round"/>
-  <circle cx="91" cy="421" r="27" fill="#fff" stroke="#171717" stroke-width="14"/>
-  <circle cx="421" cy="91" r="27" fill="#fff" stroke="#171717" stroke-width="14"/>
+  <rect width="800" height="300" fill="#000"/>
+  <text x="400" y="195"
+        text-anchor="middle"
+        font-family="Arial, Helvetica, sans-serif"
+        font-size="150"
+        font-style="italic"
+        font-weight="700"
+        fill="#ff7a00">~ring</text>
 </svg>

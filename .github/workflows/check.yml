@@ -1,0 +1,32 @@
+name: Check ~ring members
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: webring-registry
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check member sites
+        run: python3 scripts/check_members.py
+      - name: Commit registry changes
+        run: |
+          if git diff --quiet -- members.json; then
+            echo "No registry changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add members.json
+          git commit -m "chore: update ~ring member status"
+          git push

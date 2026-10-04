@@ -71,7 +71,26 @@ with open("members.json", encoding="utf-8") as f:
 
 members = registry.get("members", [])
 
-if sum(1 for m in members if m.get("github", "").lower() == AUTHOR.lower()) >= 3:
+try:
+    github_request = urllib.request.Request(
+        "https://api.github.com/users/" + urllib.parse.quote(AUTHOR),
+        headers={
+            "Accept": "application/vnd.github+json",
+            "User-Agent": "~ring-verifier/1.0",
+        },
+        method="GET",
+    )
+    with urllib.request.urlopen(github_request, timeout=15) as response:
+        github_user = json.load(response)
+    github_id = github_user.get("id")
+    github_login = github_user.get("login")
+except Exception as exc:
+    fail(f"Could not resolve GitHub user: {exc}")
+
+if not isinstance(github_id, int) or not github_login:
+    fail("Could not resolve a valid GitHub user ID.")
+
+if sum(1 for m in members if m.get("githubId") == github_id) >= 3:
     fail("This GitHub account already has 3 registered applications.")
 
 if any(m.get("url", "").rstrip("/") == normalized for m in members):
@@ -81,7 +100,8 @@ members.append({
     "name": site_name,
     "url": normalized,
     "description": description,
-    "github": AUTHOR,
+    "github": github_login,
+    "githubId": github_id,
     "status": "active",
     "consecutiveFailures": 0
 })

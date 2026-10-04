@@ -44,7 +44,11 @@
     img.style.width = "96px";
     img.style.height = "auto";
     img.style.margin = "0 0 0.75rem";
-    return img;
+    const a = document.createElement("a");
+    a.href = "https://tildering.pages.dev/";
+    a.append(img);
+    a.setAttribute("aria-label", "~ring");
+    return a;
   };
 
   fetch(endpoint, { cache: "no-store" })

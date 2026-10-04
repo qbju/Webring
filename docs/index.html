@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>~ring</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<main>
+<header>
+  <p class="eyebrow">THE WEB, CONNECTED</p>
+  <h1>~ring</h1>
+  <p class="lead">個人サイトと小さなウェブを、ゆるくつなぐウェブリング。</p>
+  <nav>
+    <a class="button" href="https://github.com/qbju/Webring/issues/new?template=join.yml">Join ~ring</a>
+    <a href="https://github.com/qbju/Webring">GitHub</a>
+  </nav>
+</header>
+
+<section>
+  <div class="section-head">
+    <h2>Members</h2>
+    <span id="count">loading...</span>
+  </div>
+  <div id="members" class="members"></div>
+  <p id="empty" class="muted" hidden>まだメンバーはいません。</p>
+</section>
+
+<section class="join">
+  <h2>Join the ring</h2>
+  <p>サイトにマーカーを置いて、GitHub Issueから申請してください。自動チェックを通過するとメンバーになります。</p>
+  <pre><code>&lt;a href="https://github.com/qbju/Webring" data-webring="~ring"&gt;~ring&lt;/a&gt;</code></pre>
+</section>
+</main>
+<script>
+(async () => {
+  const list = document.querySelector("#members");
+  const count = document.querySelector("#count");
+  try {
+    const res = await fetch("../members.json", {cache:"no-store"});
+    if (!res.ok) throw new Error("registry unavailable");
+    const data = await res.json();
+    const members = (data.members || []).filter(m => m.status !== "inactive");
+    count.textContent = members.length + " sites";
+    if (!members.length) document.querySelector("#empty").hidden = false;
+    members.forEach((member, index) => {
+      const article = document.createElement("article");
+      article.className = "member";
+      const title = document.createElement("h3");
+      const link = document.createElement("a");
+      link.href = member.url;
+      link.textContent = member.name || member.url;
+      link.rel = "noopener noreferrer";
+      link.target = "_blank";
+      title.append(link);
+      const desc = document.createElement("p");
+      desc.textContent = member.description || "No description.";
+      const meta = document.createElement("small");
+      meta.textContent = member.github ? "@" + member.github : "";
+      article.append(title, desc, meta);
+      list.append(article);
+    });
+  } catch {
+    count.textContent = "error";
+    document.querySelector("#empty").textContent = "メンバー一覧を取得できませんでした。";
+    document.querySelector("#empty").hidden = false;
+  }
+})();
+</script>
+</body>
+</html>

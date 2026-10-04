@@ -17,7 +17,33 @@ Add this to a page on your site:
 <script src="https://tildering.pages.dev/widget.js" data-webring="~ring"></script>
 ```
 
-The widget provides **Prev / Random / Next** navigation between active ~ring members.
+The default widget provides **Prev / Random / Next** navigation between active ~ring members.
+
+### Widget styles
+
+You can choose a different navigation style with `data-webring-style`:
+
+```html
+<!-- Default: ← Prev · Random · Next → -->
+<script src="https://tildering.pages.dev/widget.js" data-webring="~ring" data-webring-style="text"></script>
+
+<!-- Button style -->
+<script src="https://tildering.pages.dev/widget.js" data-webring="~ring" data-webring-style="buttons"></script>
+
+<!-- Vertical style -->
+<script src="https://tildering.pages.dev/widget.js" data-webring="~ring" data-webring-style="stacked"></script>
+```
+
+You can also show the official ~ring logo above the navigation:
+
+```html
+<script src="https://tildering.pages.dev/widget.js"
+  data-webring="~ring"
+  data-webring-style="buttons"
+  data-webring-logo="true"></script>
+```
+
+Available styles are `text`, `buttons`, and `stacked`. The logo option is independent, so it can be combined with any style.
 
 ### 2. Open an application
 

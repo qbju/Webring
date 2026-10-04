@@ -12,6 +12,15 @@ body:
             <nav id="~ring"></nav>
             <script src="https://tildering.pages.dev/widget.js" data-webring="~ring"></script>
 
+        Optional widget settings:
+
+            data-webring-style="text"
+            data-webring-style="buttons"
+            data-webring-style="stacked"
+            data-webring-logo="true"
+
+        These settings only change the appearance of the widget.
+
   - type: input
     id: site_name
     attributes:

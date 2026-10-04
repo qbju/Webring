@@ -1,0 +1,6 @@
+/members.json
+  Access-Control-Allow-Origin: *
+  Cache-Control: no-store
+
+/widget.js
+  Access-Control-Allow-Origin: *

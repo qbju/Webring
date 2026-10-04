@@ -9,6 +9,14 @@
       "github": "qbju",
       "status": "active",
       "consecutiveFailures": 0
+    },
+    {
+      "name": "home",
+      "url": "https://envs.net/~noh",
+      "description": "拠点",
+      "github": "qbju",
+      "status": "active",
+      "consecutiveFailures": 0
     }
   ]
 }

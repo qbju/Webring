@@ -86,20 +86,26 @@ members.append({
     "consecutiveFailures": 0
 })
 
-with open("members.json", "w", encoding="utf-8") as f:
-    json.dump(registry, f, ensure_ascii=False, indent=2)
-    f.write("\n")
+def write_registry():
+    payload = json.dumps(registry, ensure_ascii=False, indent=2) + "\n"
+    with open("members.json", "w", encoding="utf-8") as f:
+        f.write(payload)
+    os.makedirs("docs", exist_ok=True)
+    with open("docs/members.json", "w", encoding="utf-8") as f:
+        f.write(payload)
+
+write_registry()
 
 subprocess.run(["git", "config", "user.name", "github-actions[bot]"], check=True)
 subprocess.run(["git", "config", "user.email", "41898282+github-actions[bot]@users.noreply.github.com"], check=True)
-subprocess.run(["git", "add", "members.json"], check=True)
+subprocess.run(["git", "add", "members.json", "docs/members.json"], check=True)
 subprocess.run(["git", "commit", "-m", "chore: add ~ring member #" + ISSUE_NUMBER], check=True)
 subprocess.run(["git", "push"], check=True)
 
 subprocess.run([
     "gh", "issue", "comment", ISSUE_NUMBER,
     "--repo", REPOSITORY,
-    "--body", "✅ Your site passed ~ring validation and has been added to members.json."
+    "--body", "✅ Your site passed ~ring validation and has been added to the ring."
 ], check=False)
 subprocess.run([
     "gh", "issue", "edit", ISSUE_NUMBER,

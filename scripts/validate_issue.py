@@ -93,8 +93,17 @@ if not isinstance(github_id, int) or not github_login:
 if sum(1 for m in members if m.get("githubId") == github_id) >= 3:
     fail("This GitHub account already has 3 registered applications.")
 
-if any(m.get("url", "").rstrip("/") == normalized for m in members):
-    fail("This site is already registered.")
+def is_same_or_nested_url(existing, candidate):
+    existing_url = existing.rstrip("/")
+    candidate_url = candidate.rstrip("/")
+    return (
+        existing_url == candidate_url
+        or candidate_url.startswith(existing_url + "/")
+        or existing_url.startswith(candidate_url + "/")
+    )
+
+if any(is_same_or_nested_url(m.get("url", ""), normalized) for m in members):
+    fail("This site or a parent/child path is already registered.")
 
 members.append({
     "name": site_name,

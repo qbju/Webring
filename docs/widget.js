@@ -43,7 +43,7 @@
     img.style.display = "block";
     img.style.width = "96px";
     img.style.height = "auto";
-    img.style.margin = "0 auto 0.75rem";
+    img.style.margin = "0 0 0.75rem";
     return img;
   };
 

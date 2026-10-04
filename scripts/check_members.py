@@ -47,6 +47,8 @@ for member in registry.get("members", []):
             changed = True
 
 if changed:
+    payload = json.dumps(registry, ensure_ascii=False, indent=2) + "\n"
     with open("members.json", "w", encoding="utf-8") as f:
-        json.dump(registry, f, ensure_ascii=False, indent=2)
-        f.write("\n")
+        f.write(payload)
+    with open("docs/members.json", "w", encoding="utf-8") as f:
+        f.write(payload)

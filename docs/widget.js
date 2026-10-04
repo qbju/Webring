@@ -3,6 +3,7 @@
   if (!script || script.dataset.webring !== "~ring") return;
 
   const endpoint = new URL("members.json", script.src).href;
+  const baseUrl = new URL(".", script.src).href;
   const containerId = script.dataset.container || "~ring";
   const container = document.getElementById(containerId);
   if (!container) return;
@@ -16,12 +17,25 @@
     }
   };
 
-  const link = (href, text) => {
+  const link = (href, text, className = "") => {
     const a = document.createElement("a");
     a.href = href;
     a.textContent = text;
     a.rel = "noopener";
+    if (className) a.className = className;
     return a;
+  };
+
+  const logo = () => {
+    const img = document.createElement("img");
+    img.src = new URL("ring.svg", baseUrl).href;
+    img.alt = "~ring";
+    img.className = "webring-logo";
+    img.style.display = "block";
+    img.style.width = "96px";
+    img.style.height = "auto";
+    img.style.margin = "0 auto 0.75rem";
+    return img;
   };
 
   fetch(endpoint, { cache: "no-store" })
@@ -44,14 +58,45 @@
       const previous = members[(index - 1 + members.length) % members.length];
       const next = members[(index + 1) % members.length];
 
+      const style = script.dataset.webringStyle || "text";
+      const showLogo = script.dataset.webringLogo === "true";
+
       container.replaceChildren();
-      container.append(
-        link(previous.url, "← Prev"),
-        document.createTextNode(" · "),
-        link(members[Math.floor(Math.random() * members.length)].url, "Random"),
-        document.createTextNode(" · "),
-        link(next.url, "Next →")
-      );
+
+      if (showLogo) {
+        container.append(logo());
+      }
+
+      const nav = document.createElement("span");
+      nav.className = "webring-nav";
+
+      if (style === "buttons") {
+        nav.append(
+          link(previous.url, "← Prev", "webring-button"),
+          document.createTextNode(" "),
+          link(members[Math.floor(Math.random() * members.length)].url, "Random", "webring-button"),
+          document.createTextNode(" "),
+          link(next.url, "Next →", "webring-button")
+        );
+      } else if (style === "stacked") {
+        nav.append(
+          link(previous.url, "← Prev"),
+          document.createElement("br"),
+          link(members[Math.floor(Math.random() * members.length)].url, "Random"),
+          document.createElement("br"),
+          link(next.url, "Next →")
+        );
+      } else {
+        nav.append(
+          link(previous.url, "← Prev"),
+          document.createTextNode(" · "),
+          link(members[Math.floor(Math.random() * members.length)].url, "Random"),
+          document.createTextNode(" · "),
+          link(next.url, "Next →")
+        );
+      }
+
+      container.append(nav);
       container.dataset.webringReady = "true";
     })
     .catch(() => {});

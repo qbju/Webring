@@ -19,6 +19,15 @@
       "status": "active",
       "consecutiveFailures": 0,
       "githubId": 299393463
+    },
+    {
+      "name": "青森県四戸村技術ブログ",
+      "url": "https://shinohe.surge.sh",
+      "description": "面白いと思った技術を紹介するブログです！",
+      "github": "22552",
+      "githubId": 236340003,
+      "status": "active",
+      "consecutiveFailures": 0
     }
   ]
 }
